@@ -1,12 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid')
+    const displaySquares = document.querySelector('.previous-grid div')
     let squares = Array.from(grid.querySelectorAll('div'))
     const width  = 10
     const hieght = 20
     let currentPosition = 4
 
     //assign function to keycodes
-    function control(e) {
+    /*function control(e) {
         if(e.KeyCode === 39) {
             moveRight()
         } else if (e.KeyCode === 38) {
@@ -16,9 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (e.KeyCode === 40) {
             moveDown()
         }
-    }
+    }*/
 
-    document.addEventListener('keyup', control)
+    //document.addEventListener('keyup', control)
 
     //The Tetrominoes
     const lTetromino = [
