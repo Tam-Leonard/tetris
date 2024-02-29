@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid')
-    const displaySquares = document.querySelector('.previous-grid div')
+    const displaySquares = document.querySelectorAll('.previous-grid div')
     let squares = Array.from(grid.querySelectorAll('div'))
     const width  = 10
     const hieght = 20
     let currentPosition = 4
+    let nextRandom = 0
 
     //assign function to keycodes
     /*function control(e) {
@@ -119,6 +120,28 @@ document.addEventListener('DOMContentLoaded', () => {
         draw()
     }
 
+    //show previous tetrimino is displaySquares
+    const displayWidth = 4;
+    const displayIndex = 0;
     
+    const smallTetrominoes = [
+        [1, displayWidth+1, displayWidth*2+1, 2], /* lTetromino */
+        [0, displayWidth, displayWidth+1, displayWidth*2+1], /* zTetromino */
+        [1, displayWidth, displayWidth+1, displayWidth+2], /* tTetromino */
+        [0, 1, displayWidth, displayWidth+1], /* oTetromino */
+        [1, displayWidth+1, displayWidth*2+1, displayWidth*3+1] /* iTetromino */
+    ]
+
+    function displayShape() {
+        displaySquares.forEach(square => {
+            square.classList.remove('block')
+        })
+        smallTetrominoes[nextRandom].forEach( index => {
+            displaySquares[displayIndex + index].classList.add('block')
+        })
+    }
+
+    displayShape()
+
 
 }) 
