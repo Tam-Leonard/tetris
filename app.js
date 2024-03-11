@@ -2,13 +2,18 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const startBtn = document.querySelector('button')
     const grid = document.querySelector('.grid')
+    const scoreDisplay = document.querySelector('.score-display')
+    const linesDisplay = document.querySelector('.lines-display')
     const displaySquares = document.querySelectorAll('.previous-grid div')
     let squares = Array.from(grid.querySelectorAll('div'))
     const width  = 10
     const height = 20
     let currentPosition = 4
-    let nextRandom = 0
+    //let nextRandom = 0
     let timerId 
+    let score =  0
+    let lines = 0
+
 
     //assign function to keycodes
     /*function control(e) {
@@ -87,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         undraw()
         currentPosition = currentPosition += width
         draw()
-        freeze() //stops current tetriminoe when it reaches the current end of the grid
+        freeze()
     }
 
     //move left and prevent collisions with shapes moving left
@@ -170,5 +175,13 @@ document.addEventListener('DOMContentLoaded', () => {
             displayShape()
         }
     })
+
+    //game over
+    function gameOver() {
+        if(current.some(index => squares[currentPosition + index].classList.contains('block2'))) {
+            scoreDisplay.innerHTML = 'end'
+            clearInterval(timerId)
+        }
+    }
 
 }) 
