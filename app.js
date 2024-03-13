@@ -9,24 +9,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const width  = 10
     const height = 20
     let currentPosition = 4
-    //let nextRandom = 0
     let timerId 
+    let currentIndex = 0
     let score =  0
     let lines = 0
 
 
     //assign function to keycodes
     /*function control(e) {
-        if(e.KeyCode === 39) {
-            moveRight()
-        } else if (e.KeyCode === 38) {
-            rotate()
-        } else if (e.KeyCode === 37) {
-            moveLeft()
-        } else if (e.KeyCode === 40) {
-            moveDown()
-        }
-    }*/
+    if (e.keyCode === 39)
+      moveright()
+    else if (e.keyCode === 38)
+      rotate()
+    else if (e.keyCode === 37)
+      moveleft()
+    else if (e.keyCode === 40)
+      moveDown()
+  }*/
 
     //document.addEventListener('keyup', control)
 
@@ -131,6 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //show previous tetrimino is displaySquares
     const displayWidth = 4;
     const displayIndex = 0;
+    let nextRandom = 0;
+
     
     const smallTetrominoes = [
         [1, displayWidth+1, displayWidth*2+1, 2], /* lTetromino */
@@ -151,22 +152,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //freeze the spape
     function freeze() {
-        if(current.some(index => squares[currentPosition + index + width].classList.contains('block3')
-        || squares[currentPosition + index + width].classList.contains('block2'))) {
+        // if block has settled
+    if (current.some(index => squares[currentPosition + index + width].classList.contains('block3') || squares[currentPosition + index + width].classList.contains('block2'))) {
+        // make it block2
         current.forEach(index => squares[index + currentPosition].classList.add('block2'))
-
+        // start a new tetromino falling
         random = nextRandom
         nextRandom = Math.floor(Math.random() * theTetrominoes.length)
         current = theTetrominoes[random][currentRotation]
         currentPosition = 4
         draw()
         displayShape()
+        gameOver()
         }
     }
+    freeze()
     
     startBtn.addEventListener('click', () => {
         if(timerId) {
-            clearInterval(timerID)
+            clearInterval(timerId)
             timerId = null
         } else {
             draw()
@@ -182,6 +186,25 @@ document.addEventListener('DOMContentLoaded', () => {
             scoreDisplay.innerHTML = 'end'
             clearInterval(timerId)
         }
+    } 
+
+    //add score
+    function addScore() {
+        for (currentIndex = 0; currentIndex < 199; currentIndex += width) {
+            const row = [currentIndex, currentIndex + 1, currentIndex + 2, currentIndex + 3, currentIndex + 4, currentIndex + 5, currentIndex + 6, currentIndex + 7, currentIndex + 8, currentIndex + 9]
+            
+            if(row.every(index => squares[index].classList.contains('block2'))) {
+                score += 10
+                lines += 1
+                scoreDisplay.innerHTML = score
+                linesDisplay.innerHTML = lines
+                row.forEach(index=> {
+                    squares[index].classList.remove
+                })
+            }
+        }
     }
+
+
 
 }) 
