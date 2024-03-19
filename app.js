@@ -164,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
         draw()
         displayShape()
         gameOver()
+        addScore()
         }
     }
     freeze()
@@ -199,12 +200,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 scoreDisplay.innerHTML = score
                 linesDisplay.innerHTML = lines
                 row.forEach(index=> {
-                    squares[index].classList.remove
+                    squares[index].classList.remove('block2') || squares[index].classList.remove('block')
                 })
+                //splice Array
+                const squaresRemoved = squares.splice(currentIndex, width)
+                squares = squaresRemoved.concat(squares)
+                squares.forEach(cell => grid.appendChild(cell))
             }
         }
-    }
-
-
+    } 
 
 }) 
